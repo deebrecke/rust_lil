@@ -4,18 +4,27 @@ struct Shuttle {
     crew_size: u8,
     propellant: f64,
 }
+
+//implementation block
+impl Shuttle {
+    fn get_name(&self) -> &str {
+        &self.name //don't forget that the & is a borrow operator
+    }
+
+    fn add_fuel(&mut self, gallons: f64) {
+        self.propellant += gallons
+    }
+}
 fn main() {
     let mut vehicle = Shuttle {
         name: String::from("Endeavour"),
         crew_size: 7,
-        propellant: 835958.0,
+        propellant: 0.0,
     };
 
-    vehicle.crew_size = 6;
-
-    let vehicle2 = Shuttle { ..vehicle.clone() };
-
-    vehicle.crew_size = 5;
-    println!("vehicle is {:?}", vehicle);
-    println!("vehicle2 is {:?}", vehicle2);
+    let vehicle_name = vehicle.get_name();
+    println!("vehicle_name is {}", vehicle_name);
+    println!("propellant is {}", vehicle.propellant);
+    vehicle.add_fuel(1000.0);
+    println!("propellant is now {}", vehicle.propellant);
 }
